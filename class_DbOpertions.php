@@ -1,6 +1,6 @@
 <?php
     class DbOpertions {  
-	   private $server_ip = '192.168.1.7';
+	   private $server_ip = '192.168.1.37';
 	   private $database = 'MyStock';
 	   private $uid = 'sa';
 	   private $pwd = '123';

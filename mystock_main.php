@@ -12,7 +12,7 @@
 	include_once "./class_DbOpertions.php";
 
 	$obj = new BaseInfoFetching();
-    $data_inserted = $obj->getStockCompany('','SSE');
+    $data_inserted = $obj->getTradeCal();
 	//$obj->printInfo('debug');
 	//print_r($data_inserted);
 
@@ -22,7 +22,7 @@
 //
     $dbOper = new DbOpertions();
    // $dbOper->dbDelete('stock_basic');
-    $dbOper->dbInsert('stock_company',$data_inserted);
+    $dbOper->dbInsert('trade_cal',$data_inserted);
 	//$dbOper->printInfoInserted();
 
 
