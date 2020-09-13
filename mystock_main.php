@@ -12,18 +12,24 @@
 	include_once "./class_DbOpertions.php";
 
 	$obj = new BaseInfoFetching();
-    $data_inserted = $obj->getTradeCal();
-	//$obj->printInfo('debug');
+    $data_inserted = $obj->getStockBasic();
+
+
+    //$data_inserted = 
+	$obj->printInfo('debug');
 	//print_r($data_inserted);
 
-//    $data_inserted = $obj->getNewShare('20200821','20200823');
-//	//$fetch_info->printInfo('debug');
-//	print_r($data_inserted);
-//
-    $dbOper = new DbOpertions();
-   // $dbOper->dbDelete('stock_basic');
-    $dbOper->dbInsert('trade_cal',$data_inserted);
-	//$dbOper->printInfoInserted();
+//	  $obj->getTradeCal('','20200101','20201231',0);
+//   $obj->getStockCompany();
+//   $obj->getNewShare('20200821','20200823');
+
+//$data_inserted = $obj->getNewShare();
+	//print_r($data_inserted);
+
+//    $dbOper = new DbOpertions();
+//   // $dbOper->dbDelete('stock_basic');
+//    $dbOper->dbInsert('trade_cal',$data_inserted);
+//	//$dbOper->printInfoInserted();
 
 
 
