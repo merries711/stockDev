@@ -44,7 +44,6 @@
           //*---数据获取---*//
           $this->json_all = json_decode(curl_exec($ch),true);
 		  $this->json_insert = $this->json_all['data']['items'];
-
 	   }
 
        //----------01方法：股票列表（接口：stock_basic）------------
@@ -69,6 +68,29 @@
 		  $this->params['is_open'] = $is_open;
 	      //----------数据获取------------
           $this->infoFetching('trade_cal',$fields);
+		  return $this->json_insert;
+	   }
+
+	   //----------03方法：股票曾用名（接口：namechange）------------
+ 	   public function getNameChange($ts_code='',$start_date='',$end_date='',$fields='') {
+		  //*---params---*//
+		  $this->params = array();
+		  $this->params['ts_code'] = $ts_code;
+		  $this->params['start_date'] = $start_date;
+		  $this->params['end_date'] = $end_date;
+	      //----------数据获取------------
+          $this->infoFetching('namechange',$fields);
+		  return $this->json_insert;
+	   }
+
+	   //----------04方法：沪深股通成份股（接口：hs_const）------------
+       public function getHsConst($hs_type,$is_new='',$fields='') {
+		  //*---params---*//
+		  $this->params = array();
+		  $this->params['hs_type'] = $hs_type;
+		  $this->params['is_new'] = $is_new;
+	      //----------数据获取------------
+          $this->infoFetching('hs_const',$fields);
 		  return $this->json_insert;
 	   }
 
@@ -99,13 +121,10 @@
 		  {
 		     echo '---以下信息为接口返回元数据---'.PHP_EOL;
              //print_r($this->params).print_r($this->post_data).print_r($this->options);            
-			 //print_r(array_slice($this->json_all,0,3));
-			 //print_r(array_slice($this->json_all['data'],0,2));
-			 print_r(current($this->json_all));
-			 print_r(next($this->json_all));
-			 print_r(next($this->json_all));
-			 print_r(next($this->json_all));
-			 print_r(next($this->json_all));
+			 print_r(array_slice($this->json_all,0,3));
+			 print_r(array_slice($this->json_all['data'],0,1));
+			 echo '[data][items]_';
+			 print_r(array_slice($this->json_all['data']['items'],0,2));
 		  }
 		  else 
 		  {

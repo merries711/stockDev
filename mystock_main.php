@@ -8,16 +8,18 @@
 	echo "================================================".PHP_EOL;
 	
 	include_once "./class_BaseInfoFetching.php";
-	//include_once "./class_MarketInfoFetching.php";
+	include_once "./class_MarketInfoFetching.php";
 	include_once "./class_DbOpertions.php";
 
-	$obj = new BaseInfoFetching();
-    $data_inserted = $obj->getStockBasic();
-
-
-    //$data_inserted = 
+	$obj = new MarketInfoFetching();
+    $data_inserted = $obj->getTop10Holders('600109.SH');
 	$obj->printInfo('debug');
-	//print_r($data_inserted);
+	//$obj->printInfo();
+
+	$obj = new MarketInfoFetching();
+    $data_inserted = $obj->getTopList('20200914');
+	$obj->printInfo('debug');
+	$obj->printInfo();
 
 //	  $obj->getTradeCal('','20200101','20201231',0);
 //   $obj->getStockCompany();
