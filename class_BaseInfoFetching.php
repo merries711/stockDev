@@ -120,7 +120,7 @@
           if ( $display_level == 'debug' )
 		  {
 		     echo '---以下信息为接口返回元数据---'.PHP_EOL;
-             //print_r($this->params).print_r($this->post_data).print_r($this->options);            
+             print_r($this->params).print_r($this->post_data).print_r($this->options);            
 			 print_r(array_slice($this->json_all,0,3));
 			 print_r(array_slice($this->json_all['data'],0,1));
 			 echo '[data][items]_';
