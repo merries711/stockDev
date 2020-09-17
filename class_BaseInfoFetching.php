@@ -71,7 +71,7 @@
 		  return $this->json_insert;
 	   }
 
-	   //----------03方法：股票曾用名（接口：namechange）------------
+	   //----------03方法：股票曾用名，10000条（接口：namechange）------------
  	   public function getNameChange($ts_code='',$start_date='',$end_date='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
@@ -94,7 +94,7 @@
 		  return $this->json_insert;
 	   }
 
-	   //----------05方法：上市公司基本信息（接口：stock_company）------------
+	   //----------05方法：上市公司基本信息，单次提取4000条，可以根据交易所分批提取（接口：stock_company）------------
  	   public function getStockCompany($ts_code='',$exchange='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
@@ -105,7 +105,7 @@
 		  return $this->json_insert;	 
 	   }
 
-       //----------08方法：IPO新股列表（接口：new_share）------------
+       //----------08方法：IPO新股列表，单次最大2000条，总量不限制（接口：new_share）------------
  	   public function getNewShare($start_date='',$end_date='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
