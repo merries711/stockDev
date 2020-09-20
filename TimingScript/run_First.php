@@ -7,12 +7,12 @@
 	  echo "Start time is $starttime".PHP_EOL;
 	  echo "================================================".PHP_EOL;
 	
-	  include_once "../ClassFiles/class_BaseInfoFetching.php";
-	  include_once "../ClassFiles/class_MarketInfoFetching.php";
+	  include_once "../ClassFiles/class_BaseInfo.php";
+	  include_once "../ClassFiles/class_MarketInfo.php";
 	  include_once "../ClassFiles/class_DbOpertions.php";
 
       /* 一、基础数据（每日全量更新）*/
-	  $obj = new BaseInfoFetching();
+	  $obj = new BaseInfo();
 	  $dbOper = new DbOpertions();
       $today = date('Ymd');
 

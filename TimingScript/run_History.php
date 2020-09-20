@@ -7,16 +7,16 @@
 	  echo "Start time is $starttime".PHP_EOL;
 	  echo "================================================".PHP_EOL;
 	
-	  include_once "../ClassFiles/class_BaseInfoFetching.php";
-	  include_once "../ClassFiles/class_MarketInfoFetching.php";
+	  include_once "../ClassFiles/class_BaseInfo.php";
+	  include_once "../ClassFiles/class_MarketInfo.php";
 	  include_once "../ClassFiles/class_DbOpertions.php";
 
       /* 一、基础数据（每日全量更新）*/
-	  $obj = new BaseInfoFetching();
+	  $obj = new BaseInfo();
 	  $dbOper = new DbOpertions();
       $today = date('Ymd');
 
-      run_History('','');
+      run_History('20200901',$today);
 
 	  function run_History($start_date,$end_date) {
           global $obj;
@@ -34,7 +34,7 @@
       }
 
 	  $prosess_end_time = microtime(TRUE);
-	  printf("数据获取及处理，共耗时:%.3f秒 \n", $prosess_end_time - $prosess_start_time);
+	  printf("run_History()数据获取及处理，共耗时:%.3f秒 \n", $prosess_end_time - $prosess_start_time);
 	  echo PHP_EOL;
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-	class BaseInfoFetching {  
+	class TradingInfo {  
 	   private $dataURL = 'http://api.waditu.com';
 	   private $urlToken = 'aa56f2e0cf3bae8ad6259bf905e6404f5f3638cc197a218690fcbd1d';
        private $params = array();
@@ -11,11 +11,11 @@
 	   public function __construct() {
 		  try
 		  {
-			 //*---options³õÊ¼»¯---*//
+			 //*---optionsåˆå§‹åŒ–---*//
              $this->options[CURLOPT_URL] = $this->dataURL;
              $this->options[CURLOPT_TIMEOUT] = 15; 
 			 $this->options[CURLOPT_RETURNTRANSFER] = true;
-             //*---post_data³õÊ¼»¯---*//
+             //*---post_dataåˆå§‹åŒ–---*//
              $this->post_data['token'] = $this->urlToken; 
           }  
           catch(Exception $e)  
@@ -24,9 +24,9 @@
           }  
 	   }
 
-       //----------Í¨ÓÃ·½·¨£ºÊı¾İ»ñÈ¡------------
+       //----------é€šç”¨æ–¹æ³•ï¼šæ•°æ®è·å–------------
 	   public function infoFetching($api_name,$fields) {     
-		  //*---post_data¡¢optionsÉèÖÃ---*//
+		  //*---post_dataã€optionsè®¾ç½®---*//
           $this->post_data['api_name'] = $api_name;
 		  $this->post_data['params'] = $this->params;
 		  $this->post_data['fields'] = $fields;
@@ -34,31 +34,31 @@
 			 $this->options[CURLOPT_POST] = true;
 			 $this->options[CURLOPT_POSTFIELDS] = json_encode($this->post_data);
 		  }
-          //*---curl³õÊ¼»¯---*//
+          //*---curlåˆå§‹åŒ–---*//
 		  $ch = curl_init();
 		  curl_setopt_array($ch,$this->options);
 		  if(curl_errno($ch)) {
 		     print_r(curl_errno($ch)).PHP_EOL;
 		     print_r(curl_getinfo($ch)).PHP_EOL;
 		  }
-          //*---Êı¾İ»ñÈ¡---*//
+          //*---æ•°æ®è·å–---*//
           $this->json_all = json_decode(curl_exec($ch),true);
 		  $this->json_insert = $this->json_all['data']['items'];
 	   }
 
-       //----------01·½·¨£º¹ÉÆ±ÁĞ±í£¨½Ó¿Ú£ºstock_basic£©------------
+       //----------01æ–¹æ³•ï¼šè‚¡ç¥¨åˆ—è¡¨ï¼ˆæ¥å£ï¼šstock_basicï¼‰------------
  	   public function getStockBasic($is_hs='',$list_status='',$exchange='',$fields='') {
-		  //*---paramsÉèÖÃ---*//
+		  //*---paramsè®¾ç½®---*//
 		  $this->params = array();
           $this->params['is_hs'] = $is_hs;
 		  $this->params['list_status'] = $list_status;
 		  $this->params['exchange'] = $exchange;
-	      //----------Êı¾İ»ñÈ¡------------
+	      //----------æ•°æ®è·å–------------
           $this->infoFetching('stock_basic',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------02·½·¨£º¸÷´ó½»Ò×Ëù½»Ò×ÈÕÀúÊı¾İ,Ä¬ÈÏÌáÈ¡µÄÊÇÉÏ½»Ëù£¨½Ó¿Ú£ºstock_company£©------------
+	   //----------02æ–¹æ³•ï¼šå„å¤§äº¤æ˜“æ‰€äº¤æ˜“æ—¥å†æ•°æ®,é»˜è®¤æå–çš„æ˜¯ä¸Šäº¤æ‰€ï¼ˆæ¥å£ï¼šstock_companyï¼‰------------
  	   public function getTradeCal($exchange='',$start_date='',$end_date='',$is_open='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
@@ -66,52 +66,52 @@
 		  $this->params['start_date'] = $start_date;
 		  $this->params['end_date'] = $end_date;
 		  $this->params['is_open'] = $is_open;
-	      //----------Êı¾İ»ñÈ¡------------
+	      //----------æ•°æ®è·å–------------
           $this->infoFetching('trade_cal',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------03·½·¨£º¹ÉÆ±ÔøÓÃÃû£¬10000Ìõ£¨½Ó¿Ú£ºnamechange£©------------
+	   //----------03æ–¹æ³•ï¼šè‚¡ç¥¨æ›¾ç”¨åï¼Œ10000æ¡ï¼ˆæ¥å£ï¼šnamechangeï¼‰------------
  	   public function getNameChange($ts_code='',$start_date='',$end_date='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
 		  $this->params['ts_code'] = $ts_code;
 		  $this->params['start_date'] = $start_date;
 		  $this->params['end_date'] = $end_date;
-	      //----------Êı¾İ»ñÈ¡------------
+	      //----------æ•°æ®è·å–------------
           $this->infoFetching('namechange',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------04·½·¨£º»¦Éî¹ÉÍ¨³É·İ¹É£¨½Ó¿Ú£ºhs_const£©------------
+	   //----------04æ–¹æ³•ï¼šæ²ªæ·±è‚¡é€šæˆä»½è‚¡ï¼ˆæ¥å£ï¼šhs_constï¼‰------------
        public function getHsConst($hs_type,$is_new='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
 		  $this->params['hs_type'] = $hs_type;
 		  $this->params['is_new'] = $is_new;
-	      //----------Êı¾İ»ñÈ¡------------
+	      //----------æ•°æ®è·å–------------
           $this->infoFetching('hs_const',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------05·½·¨£ºÉÏÊĞ¹«Ë¾»ù±¾ĞÅÏ¢£¬µ¥´ÎÌáÈ¡4000Ìõ£¬¿ÉÒÔ¸ù¾İ½»Ò×Ëù·ÖÅúÌáÈ¡£¨½Ó¿Ú£ºstock_company£©------------
+	   //----------05æ–¹æ³•ï¼šä¸Šå¸‚å…¬å¸åŸºæœ¬ä¿¡æ¯ï¼Œå•æ¬¡æå–4000æ¡ï¼Œå¯ä»¥æ ¹æ®äº¤æ˜“æ‰€åˆ†æ‰¹æå–ï¼ˆæ¥å£ï¼šstock_companyï¼‰------------
  	   public function getStockCompany($ts_code='',$exchange='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
           $this->params['ts_code'] = $ts_code;
 		  $this->params['exchange'] = $exchange;
-	      //----------Êı¾İ»ñÈ¡------------
+	      //----------æ•°æ®è·å–------------
           $this->infoFetching('stock_company',$fields);
 		  return $this->json_insert;	 
 	   }
 
-       //----------08·½·¨£ºIPOĞÂ¹ÉÁĞ±í£¬µ¥´Î×î´ó2000Ìõ£¬×ÜÁ¿²»ÏŞÖÆ£¨½Ó¿Ú£ºnew_share£©------------
+       //----------08æ–¹æ³•ï¼šIPOæ–°è‚¡åˆ—è¡¨ï¼Œå•æ¬¡æœ€å¤§2000æ¡ï¼Œæ€»é‡ä¸é™åˆ¶ï¼ˆæ¥å£ï¼šnew_shareï¼‰------------
  	   public function getNewShare($start_date='',$end_date='',$fields='') {
 		  //*---params---*//
 		  $this->params = array();
           $this->params['start_date'] = $start_date;
 		  $this->params['end_date'] = $end_date;
-	      //----------Êı¾İ»ñÈ¡------------
+	      //----------æ•°æ®è·å–------------
           $this->infoFetching('new_share',$fields);
 		  return $this->json_insert;
 	   }
@@ -119,7 +119,7 @@
        public function printInfo($display_level='normal') {
           if ( $display_level == 'debug' )
 		  {
-		     echo '---ÒÔÏÂĞÅÏ¢Îª½Ó¿Ú·µ»ØÔªÊı¾İ---'.PHP_EOL;
+		     echo '---ä»¥ä¸‹ä¿¡æ¯ä¸ºæ¥å£è¿”å›å…ƒæ•°æ®---'.PHP_EOL;
              print_r($this->params).print_r($this->post_data).print_r($this->options);            
 			 print_r(array_slice($this->json_all,0,3));
 			 print_r(array_slice($this->json_all['data'],0,1));
@@ -128,7 +128,7 @@
 		  }
 		  else 
 		  {
-             echo '---ÒÔÏÂĞÅÏ¢Îª¼´½«²åÈëÊı¾İ¿âµÄÊı¾İ---'.PHP_EOL;
+             echo '---ä»¥ä¸‹ä¿¡æ¯ä¸ºå³å°†æ’å…¥æ•°æ®åº“çš„æ•°æ®---'.PHP_EOL;
 		     print_r($this->json_insert);
 		  }
 	   }

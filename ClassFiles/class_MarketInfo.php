@@ -1,5 +1,5 @@
 <?php
-	class MarketInfoFetching {  
+	class MarketInfo {  
 	   private $dataURL = 'http://api.waditu.com';
 	   private $urlToken = 'aa56f2e0cf3bae8ad6259bf905e6404f5f3638cc197a218690fcbd1d';
        private $params = array();
