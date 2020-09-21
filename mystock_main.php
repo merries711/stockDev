@@ -7,32 +7,18 @@
 	echo "Start time is $starttime".PHP_EOL;
 	echo "================================================".PHP_EOL;
 	
-	include_once "./class_BaseInfoFetching.php";
-	include_once "./class_MarketInfoFetching.php";
-	include_once "./class_DbOpertions.php";
+	  include_once "./ClassFiles/class_BaseInfo.php";
+	  include_once "./ClassFiles/class_MarketInfo.php";
+      include_once "./ClassFiles/class_TradingInfo.php";
+	  include_once "./ClassFiles/class_DbOpertions.php";
 
-	$obj = new MarketInfoFetching();
-    $data_inserted = $obj->getTop10Holders('600109.SH');
-	$obj->printInfo('debug');
+	$obj = new TradingInfo();
+    $data_inserted = $obj->getDaily('','20200918');
+	//$obj->printInfo('debug');
 	//$obj->printInfo();
 
-	$obj = new MarketInfoFetching();
-    $data_inserted = $obj->getTopList('20200914');
-	$obj->printInfo('debug');
-	$obj->printInfo();
-
-//	  $obj->getTradeCal('','20200101','20201231',0);
-//   $obj->getStockCompany();
-//   $obj->getNewShare('20200821','20200823');
-
-//$data_inserted = $obj->getNewShare();
-	//print_r($data_inserted);
-
-//    $dbOper = new DbOpertions();
-//   // $dbOper->dbDelete('stock_basic');
-//    $dbOper->dbInsert('trade_cal',$data_inserted);
-//	//$dbOper->printInfoInserted();
-
-
+    $dbOper = new DbOpertions();
+    $dbOper->dbDelete('Trading_daily');
+    $dbOper->dbInsert('Trading_daily',$data_inserted);
 
 ?>
