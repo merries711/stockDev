@@ -1,9 +1,9 @@
 <?php
-	class MarketInfoFetching {  
+	class BaseInfo {  
 	   private $dataURL = 'http://api.waditu.com';
 	   private $urlToken = 'aa56f2e0cf3bae8ad6259bf905e6404f5f3638cc197a218690fcbd1d';
        private $params = array();
-	   private $postData = array();
+	   private $post_data = array();
 	   private $options = array();
        private $json_all;
 	   private $json_insert;
@@ -46,81 +46,85 @@
 		  $this->json_insert = $this->json_all['data']['items'];
 	   }
 
-       //----------01方法：港股通十大成交股（接口：ggt_top10）------------
- 	   public function getGgtTop10($ts_code,$trade_date,$start_date='',$end_date='',$market_type='',$fields='') {
+       //----------01方法：股票列表（接口：stock_basic）------------
+ 	   public function getStockBasic($is_hs='',$list_status='',$exchange='',$fields='') {
 		  //*---params设置---*//
 		  $this->params = array();
-          $this->params['ts_code'] = $ts_code;
-		  $this->params['trade_date'] = $trade_date;
-		  $this->params['start_date'] = $start_date;
-		  $this->params['end_date'] = $end_date;
-		  $this->params['market_type'] = $market_type;
+          $this->params['is_hs'] = $is_hs;
+		  $this->params['list_status'] = $list_status;
+		  $this->params['exchange'] = $exchange;
 	      //----------数据获取------------
-          $this->infoFetching('ggt_top10',$fields);
+          $this->infoFetching('stock_basic',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------04方法：前十大股东（接口：top10_holders）------------
- 	   public function getTop10Holders($ts_code,$period='',$ann_date='',$start_date='',$end_date='',$fields='') {
-		  //*---params设置---*//
+	   //----------02方法：各大交易所交易日历数据,默认提取的是上交所（接口：stock_company）------------
+ 	   public function getTradeCal($exchange='',$start_date='',$end_date='',$is_open='',$fields='') {
+		  //*---params---*//
 		  $this->params = array();
-          $this->params['ts_code'] = $ts_code;
-		  $this->params['period'] = $period;
-		  $this->params['ann_date'] = $ann_date;
+		  $this->params['exchange'] = $exchange;
 		  $this->params['start_date'] = $start_date;
 		  $this->params['end_date'] = $end_date;
+		  $this->params['is_open'] = $is_open;
 	      //----------数据获取------------
-          $this->infoFetching('top10_holders',$fields);
+          $this->infoFetching('trade_cal',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------05方法：前十大流通股东（接口：top10_floatholders）------------
- 	   public function getTop10Floatholders($ts_code,$period='',$ann_date='',$start_date='',$end_date='',$fields='') {
-		  //*---params设置---*//
+	   //----------03方法：股票曾用名，10000条（接口：namechange）------------
+ 	   public function getNameChange($ts_code='',$start_date='',$end_date='',$fields='') {
+		  //*---params---*//
 		  $this->params = array();
-          $this->params['ts_code'] = $ts_code;
-		  $this->params['period'] = $period;
-		  $this->params['ann_date'] = $ann_date;
+		  $this->params['ts_code'] = $ts_code;
 		  $this->params['start_date'] = $start_date;
 		  $this->params['end_date'] = $end_date;
 	      //----------数据获取------------
-          $this->infoFetching('top10_floatholders',$fields);
+          $this->infoFetching('namechange',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------06方法：龙虎榜每日明细（接口：top_list）------------
- 	   public function getTopList($trade_date,$ts_code='',$fields='') {
-		  //*---params设置---*//
+	   //----------04方法：沪深股通成份股（接口：hs_const）------------
+       public function getHsConst($hs_type,$is_new='',$fields='') {
+		  //*---params---*//
 		  $this->params = array();
-		  $this->params['trade_date'] = $trade_date;
-          $this->params['ts_code'] = $ts_code;
+		  $this->params['hs_type'] = $hs_type;
+		  $this->params['is_new'] = $is_new;
 	      //----------数据获取------------
-          $this->infoFetching('top_list',$fields);
+          $this->infoFetching('hs_const',$fields);
 		  return $this->json_insert;
 	   }
 
-	   //----------07方法：龙虎榜机构明细（接口：top_inst）------------
- 	   public function getTopInst($trade_date,$ts_code='',$fields='') {
-		  //*---params设置---*//
+	   //----------05方法：上市公司基本信息，单次提取4000条，可以根据交易所分批提取（接口：stock_company）------------
+ 	   public function getStockCompany($ts_code='',$exchange='',$fields='') {
+		  //*---params---*//
 		  $this->params = array();
-		  $this->params['trade_date'] = $trade_date;
           $this->params['ts_code'] = $ts_code;
+		  $this->params['exchange'] = $exchange;
 	      //----------数据获取------------
-          $this->infoFetching('top_inst',$fields);
-		  return $this->json_insert;
+          $this->infoFetching('stock_company',$fields);
+		  return $this->json_insert;	 
 	   }
 
+       //----------08方法：IPO新股列表，单次最大2000条，总量不限制（接口：new_share）------------
+ 	   public function getNewShare($start_date='',$end_date='',$fields='') {
+		  //*---params---*//
+		  $this->params = array();
+          $this->params['start_date'] = $start_date;
+		  $this->params['end_date'] = $end_date;
+	      //----------数据获取------------
+          $this->infoFetching('new_share',$fields);
+		  return $this->json_insert;
+	   }
 
        public function printInfo($display_level='normal') {
           if ( $display_level == 'debug' )
 		  {
 		     echo '---以下信息为接口返回元数据---'.PHP_EOL;
-             //print_r($this->params).print_r($this->post_data).print_r($this->options);            
+             print_r($this->params).print_r($this->post_data).print_r($this->options);            
 			 print_r(array_slice($this->json_all,0,3));
 			 print_r(array_slice($this->json_all['data'],0,1));
 			 echo '[data][items]_';
 			 print_r(array_slice($this->json_all['data']['items'],0,2));
-			 print_r(array_slice($this->json_all['data'],2));
 		  }
 		  else 
 		  {
@@ -136,7 +140,7 @@
 		  }
           catch(Exception $e)  
           {   
-          die(print_r($e->getMessage()));   
+             die(print_r($e->getMessage()));   
           }  
 	   }
 	}
