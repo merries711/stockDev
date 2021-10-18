@@ -20,17 +20,17 @@
 	   }
 
 	   function dbInsert($tab_name,$data_input) {
-		   //---¼ÆËã²åÈë±íµÄÁÐÊý---
+		   //---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ æµ‹è¯•---
 		  $query = "select name from syscolumns where id=OBJECT_ID('$tab_name') order by colorder";
 		  $stmt = $this->conn->prepare($query,array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));  
 		  $stmt->execute();  
 		  $row_count = $stmt->rowCount();  
-		  //---Éú³ÉÕ¼Î»·û---
+		  //---ï¿½ï¿½ï¿½ï¿½Õ¼Î»ï¿½ï¿½---
 		  $bit="?";
 		  for ($i = 1; $i <= $row_count-1; $i++) {
 			 $bit .= ", ?";
 		  }
-		  //---Ö´ÐÐ²åÈë²Ù×÷--- 
+		  //---Ö´ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--- 
 		  $tsql="insert into ".$tab_name." values (".$bit.")";
 		  $stmt = $this->conn->prepare($tsql,array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL)); 
 		  $input_time = date("Y-m-d H:i:s");
@@ -41,7 +41,7 @@
 	   }
 
 	   function dbDelete($tab_name) {
-		  //---Ö´ÐÐÉ¾³ý²Ù×÷--- 
+		  //---Ö´ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--- 
 		  $tsql="delete from ".$tab_name;
 		  $stmt = $this->conn->prepare($tsql,array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL)); 
 		  $stmt->execute();
